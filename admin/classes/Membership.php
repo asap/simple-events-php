@@ -1,0 +1,39 @@
+<?php
+
+require 'Mysql.php';
+
+class Membership {
+	
+	function validate_user($un, $pwd) {
+		$mysql = New Mysql();
+		$ensure_credentials = $mysql->verify_Username_and_Pass($un, md5($pwd));
+		
+		if($ensure_credentials) {
+			$_SESSION['status'] = 'authorized';
+			header("location: index.php");
+		} else return "<strong>Whoops!</strong> Please enter a correct username and password";
+		
+	} 
+	
+	function log_User_Out() {
+		if(isset($_SESSION['status'])) {
+			unset($_SESSION['status']);
+			
+			if(isset($_COOKIE[session_name()])) 
+				setcookie(session_name(), '', time() - 1000);
+				session_destroy();
+		}
+	}
+	
+	function confirm_Member() {
+		session_start();
+		if($_SESSION['status'] !='authorized') header("location: index.php");
+		return true;
+	}
+	
+	function is_logged_in(){
+		if(isset($_SESSION['status']) && $_SESSION['status'] =='authorized') return true;
+		return false;
+	}
+	
+}

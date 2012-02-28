@@ -1,1 +1,30 @@
 Simple Events Manager CMS
+
+Started as a procedural based events manager but I've tried to make it more object oriented.
+
+Uses jQuery datepicker for date selection
+
+Uses Twitter bootcamp for backend ui, because I'm lazy
+
+To set up Database:
+
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `venue` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `summary` text NOT NULL,
+  `date` datetime NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+
+CREATE TABLE `users` (
+  `user_id` int(8) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(30) NOT NULL,
+  `user_pass` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_name` (`user_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+INSERT INTO `users` VALUES(NULL, 'user', md5('password'));
